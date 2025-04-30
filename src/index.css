@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+@import "tailwindcss";
+
+:root {
+  --gradient: radial-gradient(circle, #e5e5e5 0%, #fff 100%);
+}
+
+html,
+body {
+  width: 100dvw;
+  overflow-x: hidden;
+  background-color: #d4ecc9;
+  color: rgb(8, 70, 23);
+  scroll-behavior: smooth;
+  font-family: "Mona Sans", sans-serif;
+}
+
+/* ========== THEME VARIABLES ========== */
+@theme {
+  --font-sans: "Mona Sans", sans-serif;
+  --color-primary: #62e0ff;
+  --color-accent: #fd5c79;
+  --color-dark: #0e0e10;
+  /* Add more custom variables as needed */
+}
+
+/* ========== UTILITIES ========== */
+@layer utilities {
+  .centered {
+    @apply flex justify-center items-center;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px var(--color-primary);
+  }
+}
+
+/* ========== COMPONENTS ========== */
+@layer components {
+  .navbar {
+    @apply fixed top-0 left-0 w-full z-[100] bg-white shadow-md transition-all duration-300 ease-in-out;
+  }
+
+  nav.desktop {
+    @apply hidden lg:flex items-center;
+
+    ul {
+      @apply flex space-x-4 lg:space-x-6;
+
+      /* Add group to list items */
+      li {
+        @apply relative group;
+
+        a {
+          @apply inline-block px-3 py-2 md:px-4 md:py-3 text-sm md:text-base relative;
+        }
+
+        .underline {
+          @apply absolute bottom-0 left-0 w-0 h-[2px] bg-blue-600 transition-[width] duration-300;
+        }
+
+        /* Fix group-hover implementation */
+        &:hover .underline {
+          @apply w-full;
+        }
+      }
+    }
+  }
+
+  /* Fixed mobile menu */
+  nav.mobile {
+    @apply lg:hidden relative z-[101];
+
+    .menu-toggle {
+      @apply p-2 hover:text-blue-600 text-2xl;
+    }
+
+    ul {
+      @apply absolute top-full left-0 w-full bg-white shadow-md py-4 hidden;
+      transform: translateY(1px); /* Prevent gap */
+    }
+
+    &.active ul {
+      @apply block;
+    }
+  }
+}
+  
+  /* Add mobile menu styles */
+  nav.mobile {
+    @apply lg:hidden;
+    
+    .menu-toggle {
+      @apply p-2 hover:text-blue-600;
+    }
+    
+    ul {
+      @apply absolute top-full left-0 w-full bg-white shadow-md py-4 hidden;
+      
+      li {
+        @apply px-6 py-3;
+        
+        a {
+          @apply block w-full;
+        }
+      }
+    }
+    
+    &.active ul {
+      @apply block;
+    }
+  }
+  
+
+
+/* ========== ANIMATIONS ========== */
+@keyframes wordSlider {
+  0% {
+    transform: translateY(0.5%);
+  }
+  25% {
+    transform: translateY(-25%);
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  75% {
+    transform: translateY(-75%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.hero-text .wrapper {
+  animation: wordSlider 21s infinite cubic-bezier(0.9, 0.01, 0.3, 0.99);
+}
